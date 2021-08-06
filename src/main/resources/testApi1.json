@@ -1,9 +1,9 @@
 {
   "artifactId": "user-registration",
-  "asyncapi-def": {
+  "definition": {
     "asyncapi": "2.0.0",
     "info": {
-      "title": "Account Service",
+      "title": "New Version of Account Service",
       "version": "1.0.0",
       "description": "Manages user accounts in the system.\n",
       "license": {

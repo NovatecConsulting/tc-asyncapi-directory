@@ -1,5 +1,5 @@
 <div>
-<mat-toolbar>
+<mat-toolbar color="primary">
   <span>AsyncAPI Overview</span>
 </mat-toolbar>
 </div>
@@ -12,7 +12,7 @@
       <p> Description: {{api.info.description}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button  (click)="onGetDetails(api.artifactId)">
+      <button mat-raised-button (click)="onGetDetails(api.artifactId)">
         <mat-icon>info</mat-icon>
       </button>
     </mat-card-actions>

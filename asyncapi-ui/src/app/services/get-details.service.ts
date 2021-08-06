@@ -15,8 +15,18 @@ export class GetDetailsService {
     private http: HttpClient) { }
 
   /* GET: all methods to SHOW an object from the blockchain */
-  getSpecificApiDefinition(artifactId: string): Observable<string> {
+  getLatestApiDefinition(artifactId: string): Observable<string> {
     const url = `${this.url}/asyncapi/${artifactId}/latest`;
+    return this.http.get<string>(url);
+  }
+
+  getLatestVersionNumber(artifactId: string): Observable<string> {
+    const url = `${this.url}/asyncapi/${artifactId}/version`;
+    return this.http.get(url, { responseType: 'text' });
+  }
+
+  getSpecificApiDefinition(artifactId: string, version: number): Observable<string> {
+    const url = `${this.url}/asyncapi/${artifactId}/${version}`;
     return this.http.get<string>(url);
   }
 }

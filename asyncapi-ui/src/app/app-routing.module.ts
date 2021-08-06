@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AsyncapiDetailsComponent } from './dashboard/asyncapi-details/asyncapi-details.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'details', component: AsyncapiDetailsComponent }
 ];

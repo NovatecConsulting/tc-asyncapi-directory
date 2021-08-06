@@ -11,6 +11,7 @@ import { MaterialModule } from "./material/material.module";
 import { MatCardModule} from "@angular/material/card";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AsyncapiDetailsComponent } from './dashboard/asyncapi-details/asyncapi-details.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AsyncapiDetailsComponent } from './dashboard/asyncapi-details/asyncapi-
     HttpClientModule,
     MaterialModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

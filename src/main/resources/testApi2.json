@@ -1,6 +1,6 @@
 {
   "artifactId": "new-user-registration",
-  "asyncapi-def": {
+  "definition": {
     "asyncapi": "2.0.0",
     "info": {
       "title": "UPDATED ACCOUNT SERVICE",

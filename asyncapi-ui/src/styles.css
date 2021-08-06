@@ -95,3 +95,7 @@ mat-footer-row mat-footer-cell{
   height: 40px;
   padding: 0px !important;
 }
+
+.fill-space {
+  flex: 1 1 auto;
+}
