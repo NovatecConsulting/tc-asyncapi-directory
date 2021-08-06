@@ -1,0 +1,21 @@
+<div>
+<mat-toolbar>
+  <span>AsyncAPI Overview</span>
+</mat-toolbar>
+</div>
+<div class="mat-elevation-z8">
+  <mat-card *ngFor="let api of (apis || [])">
+    <mat-card-title>AsyncAPI</mat-card-title>
+    <mat-card-content>
+      <p> Title: {{api.info.title}}</p>
+      <p> Version: {{api.info.version}}</p>
+      <p> Description: {{api.info.description}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button  (click)="onGetDetails(api.artifactId)">
+        <mat-icon>info</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
