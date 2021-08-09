@@ -1,15 +1,38 @@
 <div>
 <mat-toolbar color="primary">
   <span>AsyncAPI Overview</span>
+  <span class="fill-space"></span>
+  <div class="input-wrapper" style="font-size: 15px">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Search...</mat-label>
+        <input type="text"
+               #searchValue
+               placeholder="Filter"
+               aria-label="Filter"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto"
+               (keyup.enter)="onSearchEnter(searchValue.value)">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
 </mat-toolbar>
+
+
 </div>
 <div class="mat-elevation-z8">
-  <mat-card *ngFor="let api of (apis || [])">
-    <mat-card-title>AsyncAPI</mat-card-title>
+  <mat-card *ngFor="let api of (displayedApis || [])">
+    <mat-card-title>{{api.artifactId}}</mat-card-title>
     <mat-card-content>
-      <p> Title: {{api.info.title}}</p>
-      <p> Version: {{api.info.version}}</p>
-      <p> Description: {{api.info.description}}</p>
+      <p> Title: {{api.definition.info.title}}</p>
+      <p> Version: {{api.definition.info.version}}</p>
+      <p> Description: {{api.definition.info.description}}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button (click)="onGetDetails(api.artifactId)">

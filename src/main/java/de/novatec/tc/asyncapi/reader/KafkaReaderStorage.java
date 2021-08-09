@@ -1,7 +1,7 @@
 package de.novatec.tc.asyncapi.reader;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.novatec.tc.AsyncApiRecord;
+import de.novatec.tc.asyncapi.AsyncApiRecord;
 import org.apache.kafka.common.TopicPartition;
 import org.springframework.context.annotation.Primary;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -41,7 +41,6 @@ public class KafkaReaderStorage implements ReaderStorage, ConsumerSeekAware{
                 (k) -> new TreeMap<>()
         );
         versionMap.put(key.get(VERSION_FIELD).asInt(), value);
-
     }
 
     @Override
@@ -66,10 +65,13 @@ public class KafkaReaderStorage implements ReaderStorage, ConsumerSeekAware{
     }
 
     @Override
-    public Set<AsyncApiRecord> getAllLatest() {
-        return cache.entrySet().stream()
-                .map(this::createLatestRecord)
-                .collect(toSet());
+    public Optional<Set<AsyncApiRecord>> getAllLatest() {
+        if(!cache.entrySet().isEmpty()) {
+            return Optional.of(cache.entrySet().stream()
+                    .map(this::createLatestRecord)
+                    .collect(toSet()));
+        }
+        return Optional.empty();
     }
 
     private AsyncApiRecord createLatestRecord(Map.Entry<String, SortedMap<Integer, ObjectNode>> artifact) {

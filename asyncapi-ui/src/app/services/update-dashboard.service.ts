@@ -5,7 +5,7 @@ import {Observable, of} from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class UpdateDashboardService {
 
-  private url = '/api/kafka';  // URL to web api
+  private url = '/api/asyncapi';  // URL to web api
 
   httpOptions = {
     headers: { 'Content-Type': 'application/json' }
@@ -14,10 +14,9 @@ export class UpdateDashboardService {
   constructor(
     private http: HttpClient) { }
 
-  /* GET: all methods to SHOW an object from the blockchain */
-  getAsyncApiSummary(): Observable<string[]> {
-    const url = `${this.url}/asyncapi/`;
-    return this.http.get<string[]>(url);
+  getAsyncApiSummary(): Observable<any[]> {
+    const url = `${this.url}/`;
+    return this.http.get<any[]>(url);
   }
 }
 

@@ -1,6 +1,6 @@
 package de.novatec.tc.asyncapi.writer;
 
-import de.novatec.tc.AsyncApiRecord;
+import de.novatec.tc.asyncapi.AsyncApiRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package de.novatec.tc;
+package de.novatec.tc.asyncapi;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 

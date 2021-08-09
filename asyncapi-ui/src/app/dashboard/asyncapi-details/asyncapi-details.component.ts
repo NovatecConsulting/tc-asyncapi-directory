@@ -10,7 +10,7 @@ import {GetDetailsService} from '../../services/get-details.service';
 })
 
 export class AsyncapiDetailsComponent implements OnInit {
-  schema: string;
+  schema: any;
   numbers: any[] = [];
   currentVersion: number;
   artifactId: any;
@@ -20,15 +20,15 @@ export class AsyncapiDetailsComponent implements OnInit {
 
     this.getDetailsService.getLatestApiDefinition(this.artifactId)
       .subscribe(s => {
-        this.schema = s;
+        this.schema = s.definition;
     });
 
     this.getDetailsService.getLatestVersionNumber(this.artifactId)
       .subscribe(v => {
         this.numbers.length = 0;
         let obj = JSON.parse(v);
-        this.currentVersion = obj.latestVersionNumber;
-        this.numbers = Array(obj.latestVersionNumber).fill(0).map((x, i) => i + 1);
+        this.currentVersion = obj.highestVersion;
+        this.numbers = Array(obj.highestVersion).fill(0).map((x, i) => i + 1);
     });
   }
 
@@ -38,7 +38,7 @@ export class AsyncapiDetailsComponent implements OnInit {
   onChangeVersion(newVersion: number) {
     this.getDetailsService.getSpecificApiDefinition(this.artifactId, newVersion)
       .subscribe(s => {
-        this.schema = s;
+        this.schema = s.definition;
         this.currentVersion = newVersion;
     });
   }

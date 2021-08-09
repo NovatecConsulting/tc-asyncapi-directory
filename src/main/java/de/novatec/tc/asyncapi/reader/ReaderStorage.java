@@ -1,6 +1,6 @@
 package de.novatec.tc.asyncapi.reader;
 
-import de.novatec.tc.AsyncApiRecord;
+import de.novatec.tc.asyncapi.AsyncApiRecord;
 
 import java.util.Optional;
 import java.util.Set;
@@ -11,5 +11,5 @@ public interface ReaderStorage {
 
     Optional<AsyncApiRecord> getLatestById(String id);
 
-    Set<AsyncApiRecord> getAllLatest();
+    Optional<Set<AsyncApiRecord>> getAllLatest();
 }

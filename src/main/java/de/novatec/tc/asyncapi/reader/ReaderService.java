@@ -2,7 +2,8 @@ package de.novatec.tc.asyncapi.reader;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.novatec.tc.AsyncApiRecord;
+import de.novatec.tc.asyncapi.AsyncApiRecord;
+import de.novatec.tc.asyncapi.AsyncApiVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,13 @@ public class ReaderService {
         return storage.getLatestById(artifactId);
     }
 
-    public Set<AsyncApiRecord> getAsyncApiSummary() {
-        return storage.getAllLatest().stream()
-                .map(this::createSummaryRecord)
-                .collect(toSet());
+    public Optional<Set<AsyncApiRecord>> getAsyncApiSummary() {
+        if(storage.getAllLatest().isPresent()) {
+            return Optional.of(storage.getAllLatest().get().stream()
+                    .map(this::createSummaryRecord)
+                    .collect(toSet()));
+        }
+        return Optional.empty();
     }
 
     public Optional<AsyncApiRecord> getSpecificVersionOfAsyncApi(String artifactId, int version) {
@@ -39,6 +43,11 @@ public class ReaderService {
         ObjectNode info = JsonNodeFactory.instance.objectNode();
         info.set(INFO_FIELD, asyncApiRecord.definition.get(INFO_FIELD));
         return new AsyncApiRecord(asyncApiRecord.artifactId, asyncApiRecord.version, info);
+    }
+
+    public Optional<AsyncApiVersion> getHighestVersionNumberOfAsyncApi(String artifactId) {
+        Optional<AsyncApiRecord> record = storage.getLatestById(artifactId);
+        return record.map(asyncApiRecord -> new AsyncApiVersion(artifactId, asyncApiRecord.version));
     }
 }
 

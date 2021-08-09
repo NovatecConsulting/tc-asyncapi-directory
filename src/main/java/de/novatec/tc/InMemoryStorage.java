@@ -1,6 +1,6 @@
 package de.novatec.tc;
-
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.novatec.tc.asyncapi.AsyncApiRecord;
 import de.novatec.tc.asyncapi.reader.ReaderStorage;
 import de.novatec.tc.asyncapi.writer.WriterStorage;
 import org.springframework.stereotype.Service;
@@ -50,9 +50,12 @@ public class InMemoryStorage implements ReaderStorage, WriterStorage {
     }
 
     @Override
-    public Set<AsyncApiRecord> getAllLatest() {
-        return map.entrySet().stream()
-                .map(e -> new AsyncApiRecord(e.getKey(), e.getValue().lastKey(), e.getValue().get(e.getValue().lastKey())))
-                .collect(toSet());
+    public Optional<Set<AsyncApiRecord>> getAllLatest() {
+        if(!map.entrySet().isEmpty()) {
+            return Optional.of(map.entrySet().stream()
+                    .map(e -> new AsyncApiRecord(e.getKey(), e.getValue().lastKey(), e.getValue().get(e.getValue().lastKey())))
+                    .collect(toSet()));
+        }
+        return Optional.empty();
     }
 }

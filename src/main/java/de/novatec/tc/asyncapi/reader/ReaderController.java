@@ -1,6 +1,7 @@
 package de.novatec.tc.asyncapi.reader;
 
-import de.novatec.tc.AsyncApiRecord;
+import de.novatec.tc.asyncapi.AsyncApiRecord;
+import de.novatec.tc.asyncapi.AsyncApiVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,9 @@ public class ReaderController {
     }
 
     @GetMapping(produces = "application/json")
-    public Set<AsyncApiRecord> getAsyncApiSummary() {
-         return readerService.getAsyncApiSummary();
+    public ResponseEntity<Set<AsyncApiRecord>> getAsyncApiSummary() {
+        Optional<Set<AsyncApiRecord>> response = readerService.getAsyncApiSummary();
+        return ResponseEntity.of(response);
     }
 
     @GetMapping(value = "/{artifactId}/latest", produces = "application/json")
@@ -36,6 +38,12 @@ public class ReaderController {
     @GetMapping(value = "/{artifactId}/{version}", produces = "application/json")
     public ResponseEntity<AsyncApiRecord> getSpecificVersionOfAsyncApi(@PathVariable String artifactId, @PathVariable int version) {
         Optional<AsyncApiRecord> response = readerService.getSpecificVersionOfAsyncApi(artifactId, version);
+        return ResponseEntity.of(response);
+    }
+
+    @GetMapping(value = "/{artifactId}", produces = "application/json")
+    public ResponseEntity<AsyncApiVersion> getHighestVersionNumberOfAsyncApi(@PathVariable String artifactId) {
+        Optional<AsyncApiVersion> response = readerService.getHighestVersionNumberOfAsyncApi(artifactId);
         return ResponseEntity.of(response);
     }
 

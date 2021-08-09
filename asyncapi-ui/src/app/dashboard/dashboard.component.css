@@ -2,3 +2,11 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.example-form-field {
+  padding-top: 5px;
+  width: 300px;
+}
+
+::ng-deep .input-wrapper{
+  height:50px !important;
+}

@@ -1,7 +1,7 @@
 package de.novatec.tc.asyncapi.writer;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import de.novatec.tc.AsyncApiRecord;
+import de.novatec.tc.asyncapi.AsyncApiRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
