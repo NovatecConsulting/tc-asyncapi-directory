@@ -2,6 +2,7 @@ import {Component, CUSTOM_ELEMENTS_SCHEMA, NgModule, OnInit} from '@angular/core
 import '@asyncapi/web-component/lib/asyncapi-web-component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GetDetailsService} from '../../services/get-details.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-asyncapi-details',
@@ -15,13 +16,23 @@ export class AsyncapiDetailsComponent implements OnInit {
   currentVersion: number;
   artifactId: any;
 
-  constructor(private getDetailsService: GetDetailsService, private route: Router) {
-    this.artifactId = route.getCurrentNavigation().extras.state.id;
+  private routeSub: Subscription;
+
+  constructor(private getDetailsService: GetDetailsService,
+              private route: Router,
+              private activatedRoute: ActivatedRoute) {
+
+  }
+
+  ngOnInit() {
+    this.routeSub = this.activatedRoute.params.subscribe(params => {
+      this.artifactId = params['id'];
+    });
 
     this.getDetailsService.getLatestApiDefinition(this.artifactId)
       .subscribe(s => {
         this.schema = s.definition;
-    });
+      });
 
     this.getDetailsService.getLatestVersionNumber(this.artifactId)
       .subscribe(v => {
@@ -29,10 +40,7 @@ export class AsyncapiDetailsComponent implements OnInit {
         let obj = JSON.parse(v);
         this.currentVersion = obj.highestVersion;
         this.numbers = Array(obj.highestVersion).fill(0).map((x, i) => i + 1);
-    });
-  }
-
-  ngOnInit(): void {
+      });
   }
 
   onChangeVersion(newVersion: number) {

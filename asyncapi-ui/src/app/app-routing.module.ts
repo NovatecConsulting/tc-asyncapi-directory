@@ -7,7 +7,7 @@ import { AsyncapiDetailsComponent } from './dashboard/asyncapi-details/asyncapi-
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'details', component: AsyncapiDetailsComponent }
+  { path: 'details/:id', component: AsyncapiDetailsComponent }
 ];
 
 @NgModule({

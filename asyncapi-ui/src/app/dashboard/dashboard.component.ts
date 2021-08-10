@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetDetails(artifactId: string) {
-    this.router.navigate(['details'], { state: { id: artifactId } });
+    this.router.navigate(["details", artifactId]);
   }
 
   onSearchEnter(searchValue: string) {
