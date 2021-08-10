@@ -1,0 +1,28 @@
+<div class="center-block p-8">
+  <mat-card>
+    <mat-card-title>
+      <h2 class="font-bold">Developer Team</h2>
+    </mat-card-title>
+
+    <mat-card-content>
+      <mat-card>
+        <mat-card-content>
+          <div class="asyncapi__markdown" *ngIf="schema">
+            <p>
+              <span class="font-bold">Team name:  </span><span *ngIf="schema.info.contact; else NoInformationProvided">{{schema.info.contact["x-team-name"]}}</span>
+            </p>
+            <p>
+              <span class="font-bold">E-mail contact:  </span><span *ngIf="schema.info.contact; else NoInformationProvided">{{schema.info.contact.email}}</span>
+            </p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+
+  </mat-card>
+</div>
+
+<ng-template #NoInformationProvided>
+  <span>The corresponding fields were not provided within your AsyncAPI schema. Please check your definition.</span>
+</ng-template>
+

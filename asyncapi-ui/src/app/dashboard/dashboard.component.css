@@ -1,10 +1,43 @@
-.mat-card {
-  margin-top: 10px;
-  margin-bottom: 10px;
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.topper {
+  width: 100%;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-.example-form-field {
-  padding-top: 5px;
-  width: 300px;
+
+.filter-button-and-bar {
+  padding-top: 10px;
+  display: inline-block;
+  width: 100%;
+}
+
+.card-bottom {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-content {
+  padding-top: 10px;
+}
+
+.directory-paginator {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.api-directory {
+  width: 95%;
+  margin: auto;
+  margin-top: 0.5%;
+}
+
+.search-bar-form {
+  width: 500px;
 }
 
 ::ng-deep .input-wrapper{
@@ -12,6 +45,7 @@
 }
 
 ::ng-deep .attribute-wrapper {
+  float: left;
   padding-left: 5px;
   padding-top: 5px;
   padding-right: 5px;

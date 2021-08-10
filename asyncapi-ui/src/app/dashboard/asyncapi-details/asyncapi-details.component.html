@@ -1,26 +1,28 @@
-<div>
-  <mat-toolbar color="primary" fxLayout="row">
-    <span>AsyncAPI Details</span>
-    <span class="fill-space"></span>
-    <button mat-button [matMenuTriggerFor]="menu">
+<mat-toolbar color="primary" fxLayout="row" class="mat-elevation-z4">
+  <span>AsyncAPI Details</span>
+  <span class="fill-space"></span>
+  <button mat-button [matMenuTriggerFor]="menu">
       <span class="mat-button-wrapper"> Version {{currentVersion}}
-        <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">
+        <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true"
+                  data-mat-icon-type="font">
           arrow_drop_down
         </mat-icon>
       </span>
-      <span matripple="" class="mat-ripple mat-button-ripple"></span><span class="mat-button-focus-overlay"></span>
-    </button>
+    <span matripple="" class="mat-ripple mat-button-ripple"></span><span class="mat-button-focus-overlay"></span>
+  </button>
 
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngFor="let n of (numbers || [])" (click)="onChangeVersion(n)">{{n}}</button>
-    </mat-menu>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let n of (numbers || [])" (click)="onChangeVersion(n)">{{n}}</button>
+  </mat-menu>
+</mat-toolbar>
 
-  </mat-toolbar>
-</div>
 <div>
   <mat-tab-group mat-align-tabs="start">
     <mat-tab label="Definition">
       <asyncapi-component [schema]="schema"></asyncapi-component>
+    </mat-tab>
+    <mat-tab label="Meta Information">
+      <app-meta-info [schema]="schema"></app-meta-info>
     </mat-tab>
     <mat-tab label="Additional Documentation">
 

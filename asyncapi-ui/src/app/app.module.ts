@@ -12,12 +12,14 @@ import { MatCardModule} from "@angular/material/card";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AsyncapiDetailsComponent } from './dashboard/asyncapi-details/asyncapi-details.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { MetaInfoComponent } from './dashboard/asyncapi-details/meta-info/meta-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    AsyncapiDetailsComponent
+    AsyncapiDetailsComponent,
+    MetaInfoComponent
   ],
   imports: [
     BrowserModule,

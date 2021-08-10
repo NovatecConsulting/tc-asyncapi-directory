@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { jsonMock} from './jsonmock';
-import { MatCardModule } from '@angular/material/card';
 import {UpdateDashboardService} from '../services/update-dashboard.service';
-import {GetDetailsService} from '../services/get-details.service';
 import {Observable} from "rxjs";
-import { of } from 'rxjs';
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
 import {Attribute} from "../models/attribute";

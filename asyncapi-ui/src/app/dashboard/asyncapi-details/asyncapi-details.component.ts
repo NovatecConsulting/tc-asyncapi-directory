@@ -3,6 +3,7 @@ import '@asyncapi/web-component/lib/asyncapi-web-component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GetDetailsService} from '../../services/get-details.service';
 import {Subscription} from "rxjs";
+import {MetaInfoComponent} from "./meta-info/meta-info.component";
 
 @Component({
   selector: 'app-asyncapi-details',

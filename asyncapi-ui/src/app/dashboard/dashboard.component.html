@@ -1,61 +1,71 @@
-<div>
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z4">
   <span>AsyncAPI Directory</span>
   <span class="fill-space"></span>
-
-  <div class="input-wrapper" style="font-size: 15px">
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Search...</mat-label>
-        <input type="text"
-               placeholder="Filter"
-               aria-label="Filter"
-               matInput
-               [formControl]="myControl"
-               [matAutocomplete]="auto"
-               (keyup.enter)="onSearchEnter(searchValue)"
-               [value]="searchValue">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </form>
-  </div>
-
-  <div class="attribute-wrapper" style="font-size: 15px">
-    <button mat-button [matMenuTriggerFor]="menu">
-      <span class="mat-button-wrapper">
-        <span class="col-md-2">{{selectedAttribute}}</span>
-        <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">
-          arrow_drop_down
-        </mat-icon>
-      </span>
-      <span matripple="" class="mat-ripple mat-button-ripple"></span><span class="mat-button-focus-overlay"></span>
-    </button>
-
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngFor="let attribute of attributes" (click)="onChangeFilter(attribute)">{{attribute.viewValue}}</button>
-    </mat-menu>
-  </div>
 </mat-toolbar>
 
-
-</div>
-<div class="mat-elevation-z8">
-  <mat-card *ngFor="let api of (displayedApis || [])">
-    <mat-card-title>{{api.artifactId}}</mat-card-title>
-    <mat-card-content>
-      <p> Title: {{api.definition.info.title}}</p>
-      <p> Version: {{api.definition.info.version}}</p>
-      <p> Description: {{api.definition.info.description}}</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button (click)="onGetDetails(api.artifactId)">
-        <mat-icon>info</mat-icon>
+<span class="topper">
+  <span class="filter-button-and-bar">
+    <span class="attribute-wrapper" style="font-size: 15px">
+      <button mat-button [matMenuTriggerFor]="menu">
+        <span class="mat-button-wrapper">
+          <span class="col-md-2">{{selectedAttribute}}</span>
+          <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">
+            arrow_drop_down
+          </mat-icon>
+        </span>
+        <span matripple="" class="mat-ripple mat-button-ripple"></span><span class="mat-button-focus-overlay"></span>
       </button>
-    </mat-card-actions>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let attribute of attributes" (click)="onChangeFilter(attribute)">{{attribute.viewValue}}</button>
+      </mat-menu>
+    </span>
+    <span class="input-wrapper" style="font-size: 15px">
+      <form class="example-form">
+        <mat-form-field class="search-bar-form">
+          <mat-label>Search...</mat-label>
+          <input type="text"
+                 placeholder="Filter"
+                 aria-label="Filter"
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto"
+                 (keyup.enter)="onSearchEnter(searchValue)"
+                 [value]="searchValue">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </span>
+  </span>
+
+  <span class="directory-paginator">
+    <mat-paginator [length]="100"
+                   [pageSize]="4"
+                   aria-label="Select page">
+    </mat-paginator>
+  </span>
+</span>
+
+<mat-divider></mat-divider>
+<div>
+  <mat-card *ngFor="let api of (displayedApis || [])" class="api-directory">
+    <mat-card-title class="card-title">{{api.artifactId}}</mat-card-title>
+    <mat-card-content class="card-content">
+      <p> Title: {{api.definition.info.title}}</p>
+      <p> Description: {{api.definition.info.description}}</p>
+
+      <span class="card-bottom">
+        <mat-chip-list aria-label="properties">
+          <mat-chip color="primary">{{api.definition.info.version}}</mat-chip>
+          <mat-chip color="primary" *ngIf="api.definition.info.contact">{{api.definition.info.contact['x-team-name']}}</mat-chip>
+        </mat-chip-list>
+        <button mat-stroked-button color="primary" (click)="onGetDetails(api.artifactId)">View Details</button>
+      </span>
+    </mat-card-content>
   </mat-card>
 </div>
 
