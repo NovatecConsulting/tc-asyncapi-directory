@@ -2,6 +2,8 @@ package de.novatec.tc.asyncapi;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.util.Objects;
+
 public class AsyncApiRecord {
 
     public String artifactId;
@@ -41,4 +43,16 @@ public class AsyncApiRecord {
         this.definition = definition;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AsyncApiRecord that = (AsyncApiRecord) o;
+        return Objects.equals(artifactId, that.artifactId) && Objects.equals(version, that.version) && Objects.equals(definition, that.definition);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(artifactId, version, definition);
+    }
 }
