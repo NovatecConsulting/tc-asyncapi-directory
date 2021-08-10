@@ -10,3 +10,14 @@
 ::ng-deep .input-wrapper{
   height:50px !important;
 }
+
+::ng-deep .attribute-wrapper {
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-right: 5px;
+  width: 120px !important;
+}
+
+::ng-deep .button-text-wrapper {
+  width: 120px !important;
+}

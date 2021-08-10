@@ -3,13 +3,20 @@
   "definition": {
     "asyncapi": "2.0.0",
     "info": {
-      "title": "New Version of Account Service",
-      "version": "1.0.0",
-      "description": "Manages user accounts in the system.\n",
+      "title": "Account service with contact info",
+      "description": "Manages user accounts in the system.",
+      "termsOfService": "https://asyncapi.org/terms/",
+      "contact": {
+        "name": "API Support",
+        "url": "https://www.asyncapi.org/support",
+        "email": "support@asyncapi.org",
+        "x-team-name": "My Team"
+      },
       "license": {
         "name": "Apache 2.0",
-        "url": "https://www.apache.org/licenses/LICENSE-2.0"
-      }
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      "version": "1.0.1"
     },
     "servers": {
       "production": {

@@ -1,19 +1,20 @@
 <div>
 <mat-toolbar color="primary">
-  <span>AsyncAPI Overview</span>
+  <span>AsyncAPI Directory</span>
   <span class="fill-space"></span>
+
   <div class="input-wrapper" style="font-size: 15px">
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Search...</mat-label>
         <input type="text"
-               #searchValue
                placeholder="Filter"
                aria-label="Filter"
                matInput
                [formControl]="myControl"
                [matAutocomplete]="auto"
-               (keyup.enter)="onSearchEnter(searchValue.value)">
+               (keyup.enter)="onSearchEnter(searchValue)"
+               [value]="searchValue">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{option}}
@@ -21,6 +22,22 @@
         </mat-autocomplete>
       </mat-form-field>
     </form>
+  </div>
+
+  <div class="attribute-wrapper" style="font-size: 15px">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <span class="mat-button-wrapper">
+        <span class="col-md-2">{{selectedAttribute}}</span>
+        <mat-icon role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">
+          arrow_drop_down
+        </mat-icon>
+      </span>
+      <span matripple="" class="mat-ripple mat-button-ripple"></span><span class="mat-button-focus-overlay"></span>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngFor="let attribute of attributes" (click)="onChangeFilter(attribute)">{{attribute.viewValue}}</button>
+    </mat-menu>
   </div>
 </mat-toolbar>
 
