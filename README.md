@@ -1,12 +1,33 @@
 ## AsyncAPI-UI
 
+###Quickstart
+1. Start Kafka components:
+``` 
+./cluster-setup.sh
+```
+2. Start KafkaApplication locally.
+3. Publish test data:
+``` 
+./test-data.sh
+```
+4. Compile and start the UI:
+``` 
+cd ./asyncapi-ui
+npm install
+npm install --save @asyncapi/web-component
+ng serve
+```
+5. Navigate to localhost:4200.
+
+
 ### Open Tasks
-* **Upgrade to next-branch and standalone component instead of web component**: \
+* **Important: Upgrade to next-branch and standalone component instead of web component**: \
 Needs further investigation: web component of next-branch did not apply css-tyles correctly; react
 component of next-branch did not render externally fetched schema definitions!
-* 
-
-
+* example with Kafka- or RabbitMQ-specific bindings (HTTP binding rendering is possible!)
+* example with external documentation 
+* additional information at "Meta-Info" tab?
+* displaying of different payload types (Avro, JSON...) in additional tab
 
 ### Custom extensions
 Nearly every object within an AsyncAPI definition can be extended with specification extensions:
