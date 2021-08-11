@@ -16,8 +16,16 @@
   </mat-menu>
 </mat-toolbar>
 
+<div class="navigation">
+  <a routerLink="/dashboard" class="mat">Directory</a>
+  <mat-icon class="navigation-symbol">navigate_next</mat-icon>
+  <span class="navigation-static">Details</span>
+</div>
+
+<mat-divider></mat-divider>
+
 <div>
-  <mat-tab-group mat-align-tabs="start">
+  <mat-tab-group mat-stretch-tabs mat-align-tabs="center">
     <mat-tab label="Definition">
       <asyncapi-component [schema]="schema"></asyncapi-component>
     </mat-tab>

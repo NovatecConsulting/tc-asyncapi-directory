@@ -31,7 +31,7 @@
                  [formControl]="myControl"
                  [matAutocomplete]="auto"
                  (keyup.enter)="onSearchEnter(searchValue)"
-                 [value]="searchValue">
+                 [(ngModel)]='searchValue'>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
               {{option}}
@@ -43,16 +43,16 @@
   </span>
 
   <span class="directory-paginator">
-    <mat-paginator [length]="100"
-                   [pageSize]="4"
-                   aria-label="Select page">
+    <mat-paginator #paginator [length]="pageLength"
+                   [pageSize]="pageSize"
+                   (page)="pageEvent = $event">
     </mat-paginator>
   </span>
 </span>
 
 <mat-divider></mat-divider>
 <div>
-  <mat-card *ngFor="let api of (displayedApis || [])" class="api-directory">
+  <mat-card *ngFor="let api of displayedApis|slice: ((paginator.pageIndex)*pageSize):((paginator.pageIndex+1)*pageSize)" class="api-directory">
     <mat-card-title class="card-title">{{api.artifactId}}</mat-card-title>
     <mat-card-content class="card-content">
       <p> Title: {{api.definition.info.title}}</p>
@@ -60,8 +60,12 @@
 
       <span class="card-bottom">
         <mat-chip-list aria-label="properties">
-          <mat-chip color="primary">{{api.definition.info.version}}</mat-chip>
-          <mat-chip color="primary" *ngIf="api.definition.info.contact">{{api.definition.info.contact['x-team-name']}}</mat-chip>
+          <mat-chip color="primary">
+            {{api.definition.info.version}}
+          </mat-chip>
+          <mat-chip color="primary" *ngIf="(api.definition.info.contact && api.definition.info.contact['x-team-name'])">
+            {{api.definition.info.contact['x-team-name']}}
+          </mat-chip>
         </mat-chip-list>
         <button mat-stroked-button color="primary" (click)="onGetDetails(api.artifactId)">View Details</button>
       </span>

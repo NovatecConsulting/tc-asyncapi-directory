@@ -1,46 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import {UpdateDashboardService} from '../services/update-dashboard.service';
 import {Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
 import {Attribute} from "../models/attribute";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   apis: any[];
   displayedApis: any[];
   optionsArtifactId: string[] = [];
   optionsTeam: string[] = [];
+  searchValue: string = "";
+  pageSize: number = 4;
+  pageEvent: PageEvent;
+  pageLength: number = 0;
+
   filteredOptions: Observable<string[]>;
   myControl = new FormControl();
   attributes: Attribute[] = [
-    {value: 'artifactId-1', viewValue: 'ArtifactID'},
-    {value: 'team-0', viewValue: 'Team'}
+    {value: 'artifactId-0', viewValue: 'ArtifactID'},
+    {value: 'team-1', viewValue: 'Team'}
   ];
   selectedAttribute: string = this.attributes[0].viewValue;
-  searchValue: string;
 
   constructor(private router: Router,
               private updateDashboardService: UpdateDashboardService) {
+
+  }
+
+  ngOnInit(): void {
     this.updateDashboardService.getAsyncApiSummary().subscribe(returnedApis => {
       this.apis = returnedApis;
+      this.pageLength = returnedApis.length;
       this.displayedApis = returnedApis;
       this.optionsArtifactId = returnedApis.map(a => a.artifactId.toString());
       this.optionsTeam = returnedApis.reduce(function(result, value){
-        if ('contact' in value.definition.info) {
+        if ('contact' in value.definition.info && 'x-team-name' in value.definition.info.contact) {
           result.push(value.definition.info.contact['x-team-name'].toString());
         }
         return result;
       }, [])
     });
-  }
 
-  ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -53,12 +64,14 @@ export class DashboardComponent implements OnInit {
   }
 
   onSearchEnter(searchValue: string) {
+    searchValue = searchValue.toLowerCase();
+
     if(this.selectedAttribute == this.attributes[0].viewValue) {
-      this.displayedApis = this.apis.filter(str => str.artifactId.toString().includes(searchValue));
+      this.displayedApis = this.apis.filter(str => str.artifactId.toString().toLowerCase().includes(searchValue));
     }else if(this.selectedAttribute == this.attributes[1].viewValue) {
       this.displayedApis = this.apis.filter(function (value) {
-        if ('contact' in value.definition.info) {
-          if(value.definition.info.contact['x-team-name'].toString().includes(searchValue)) {
+        if ('contact' in value.definition.info && 'x-team-name' in value.definition.info.contact) {
+          if(value.definition.info.contact['x-team-name'].toString().toLowerCase().includes(searchValue)) {
             return value;
           }
         }
