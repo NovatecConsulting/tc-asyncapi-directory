@@ -1,6 +1,6 @@
 ## AsyncAPI-UI
 
-###Quickstart
+### Quick Start
 1. Start Kafka components:
 ``` 
 ./cluster-setup.sh
