@@ -1,9 +1,9 @@
 {
-  "artifactId": "user-registration",
+  "artifactId": "user-registration-service",
   "definition": {
     "asyncapi": "2.0.0",
     "info": {
-      "title": "Account service with contact info",
+      "title": "Account service",
       "description": "Manages user accounts in the system.",
       "termsOfService": "https://asyncapi.org/terms/",
       "contact": {

@@ -1,5 +1,13 @@
 ## AsyncAPI-UI
 
+### Open Tasks
+* **Upgrade to next-branch and standalone component instead of web component**: \
+Needs further investigation: web component of next-branch did not apply css-tyles correctly; react
+component of next-branch did not render externally fetched schema definitions!
+* 
+
+
+
 ### Custom extensions
 Nearly every object within an AsyncAPI definition can be extended with specification extensions:
 * https://www.asyncapi.com/docs/specifications/v2.0.0#specificationExtensions
