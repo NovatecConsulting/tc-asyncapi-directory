@@ -24,7 +24,7 @@
 ----
 cd ./asyncapi-ui
 npm install
-npm install --save @asyncapi/web-component
+npm install --save @asyncapi/react-component@next
 ng serve
 ----
 
@@ -32,12 +32,12 @@ ng serve
 
 == Open Tasks
 
-* [ ] *Important: Upgrade to next-branch and standalone component instead of web component* +
+* [x] *Important: Upgrade to next-branch and standalone component instead of web component* +
 Needs further investigation. Web component of next-branch did not apply css-tyles correctly;
 react component of next-branch did not render externally fetched schema definitions!
 * [x] example with Kafka- or RabbitMQ-specific bindings (HTTP binding rendering is possible!)
-* [ ] render external documentation
-* [ ] render operationIDs
+* [x] render operationIDs
+* [ ] render external documentation?
 * [ ] additional information at "Meta-Info" tab?
 * [ ] displaying of different payload types (Avro, JSON...) in additional tab
 

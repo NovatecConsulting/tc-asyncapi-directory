@@ -27,7 +27,9 @@
 <div>
   <mat-tab-group mat-stretch-tabs mat-align-tabs="center">
     <mat-tab label="Definition">
-      <asyncapi-component [schema]="schema"></asyncapi-component>
+      <div class="react-wrapper">
+        <app-asyncapi-react *ngIf="schema" [schema]="schema"></app-asyncapi-react>
+      </div>
     </mat-tab>
     <mat-tab label="Meta Information">
       <app-meta-info [schema]="schema"></app-meta-info>

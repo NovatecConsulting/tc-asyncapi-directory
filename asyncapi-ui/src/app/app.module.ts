@@ -13,13 +13,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AsyncapiDetailsComponent } from './dashboard/asyncapi-details/asyncapi-details.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { MetaInfoComponent } from './dashboard/asyncapi-details/meta-info/meta-info.component';
+import { AsyncapiReactComponent } from './dashboard/asyncapi-details/asyncapi-react/asyncapi-react.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     AsyncapiDetailsComponent,
-    MetaInfoComponent
+    MetaInfoComponent,
+    AsyncapiReactComponent
   ],
   imports: [
     BrowserModule,

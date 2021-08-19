@@ -4,6 +4,12 @@
   align-items: center;
 }
 
+.react-wrapper {
+  width: 1200px;
+  margin:0 auto;
+  padding-top: 10px;
+}
+
 .mat-tab-label {
   justify-content: space-around;
   display: flex;
