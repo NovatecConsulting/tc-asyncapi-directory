@@ -18,6 +18,10 @@
       },
       "version": "1.0.1"
     },
+    "externalDocs": {
+      "description": "More internal documentation is available here.",
+      "url": "https://github.com/NovatecConsulting/tc-asyncapi-ui"
+    },
     "servers": {
       "production": {
         "url": "localhost:5672",
