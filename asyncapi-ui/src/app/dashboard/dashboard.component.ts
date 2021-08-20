@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onGetDetails(artifactId: string) {
-    this.router.navigate(["details", artifactId]);
+    this.router.navigate(["directory/details", artifactId]);
   }
 
   onSearchEnter(searchValue: string) {

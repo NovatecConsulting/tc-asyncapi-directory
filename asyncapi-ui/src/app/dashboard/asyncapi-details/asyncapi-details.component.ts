@@ -1,4 +1,4 @@
-import {Component, CUSTOM_ELEMENTS_SCHEMA, NgModule, OnInit} from '@angular/core';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, NgModule, OnInit, Pipe, PipeTransform} from '@angular/core';
 import '@asyncapi/web-component/lib/asyncapi-web-component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GetDetailsService} from '../../services/get-details.service';

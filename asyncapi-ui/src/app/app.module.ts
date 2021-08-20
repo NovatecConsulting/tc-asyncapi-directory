@@ -14,6 +14,7 @@ import { AsyncapiDetailsComponent } from './dashboard/asyncapi-details/asyncapi-
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { MetaInfoComponent } from './dashboard/asyncapi-details/meta-info/meta-info.component';
 import { AsyncapiReactComponent } from './dashboard/asyncapi-details/asyncapi-react/asyncapi-react.component';
+import { RawContentComponent } from './dashboard/asyncapi-details/raw-content/raw-content.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AsyncapiReactComponent } from './dashboard/asyncapi-details/asyncapi-re
     DashboardComponent,
     AsyncapiDetailsComponent,
     MetaInfoComponent,
-    AsyncapiReactComponent
+    AsyncapiReactComponent,
+    RawContentComponent
   ],
   imports: [
     BrowserModule,

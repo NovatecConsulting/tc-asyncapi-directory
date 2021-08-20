@@ -17,7 +17,7 @@
 </mat-toolbar>
 
 <div class="navigation">
-  <a routerLink="/dashboard" class="mat">Directory</a>
+  <a routerLink="/directory" class="mat">Directory</a>
   <mat-icon class="navigation-symbol">navigate_next</mat-icon>
   <span class="navigation-static">Details</span>
 </div>
@@ -26,16 +26,33 @@
 
 <div>
   <mat-tab-group mat-stretch-tabs mat-align-tabs="center">
+
     <mat-tab label="Definition">
       <div class="react-wrapper">
         <app-asyncapi-react *ngIf="schema" [schema]="schema"></app-asyncapi-react>
       </div>
     </mat-tab>
+
     <mat-tab label="Meta Information">
       <app-meta-info [schema]="schema"></app-meta-info>
     </mat-tab>
-    <mat-tab label="Additional Documentation">
 
+    <mat-tab label="Raw Content">
+      <div class="center-block p-8">
+        <mat-card>
+          <mat-card-content>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header
+                collapsedHeight="10%"
+                expandedHeight="auto">
+                <mat-panel-title>
+                    <p><pre>{{schema |json}}</pre>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>
