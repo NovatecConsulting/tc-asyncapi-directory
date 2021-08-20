@@ -37,22 +37,9 @@
       <app-meta-info [schema]="schema"></app-meta-info>
     </mat-tab>
 
+
     <mat-tab label="Raw Content">
-      <div class="center-block p-8">
-        <mat-card>
-          <mat-card-content>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header
-                collapsedHeight="10%"
-                expandedHeight="auto">
-                <mat-panel-title>
-                    <p><pre>{{schema |json}}</pre>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-            </mat-expansion-panel>
-          </mat-card-content>
-        </mat-card>
-      </div>
+      <app-raw-content [schema]="schema"></app-raw-content>
     </mat-tab>
   </mat-tab-group>
 </div>

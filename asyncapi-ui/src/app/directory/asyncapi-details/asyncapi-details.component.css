@@ -4,17 +4,6 @@
   align-items: center;
 }
 
-mat-panel-description{
-}
-
-mat-panel-title{
-  display: block !important;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  width: 100%;
-}
-
 .react-wrapper {
   width: 1200px;
   margin:0 auto;

@@ -1,0 +1,17 @@
+<mat-card class="raw-content-card">
+
+  <mat-card-title>
+    <div class="collapsible-header">
+      <button mat-button (click)="showText()" class="expansion-button">
+        <mat-icon>{{icon}}</mat-icon>
+      </button>
+    </div>
+  </mat-card-title>
+
+  <mat-card-content>
+    <div [ngClass]="{'limitTextHeight': isReadMore}">
+      <pre>{{schema |json}}</pre>
+    </div>
+  </mat-card-content>
+
+</mat-card>

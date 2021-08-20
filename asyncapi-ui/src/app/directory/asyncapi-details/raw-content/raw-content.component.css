@@ -1,0 +1,18 @@
+.limitTextHeight {
+  height: 50vh;
+  overflow: hidden;
+}
+
+.expansion-button {
+  margin: 10px;
+  float: right;
+}
+
+.raw-content-card {
+  margin: 10px;
+  overflow: hidden;
+}
+
+button:focus {
+  outline: none;
+}

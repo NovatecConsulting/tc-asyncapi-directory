@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
-import {UpdateDashboardService} from '../services/update-dashboard.service';
+import {UpdateDirectoryService} from '../services/update-directory.service';
 import {Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {map, startWith} from "rxjs/operators";
@@ -8,12 +8,12 @@ import {Attribute} from "../models/attribute";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-directory',
+  templateUrl: './directory.component.html',
+  styleUrls: ['./directory.component.css']
 })
 
-export class DashboardComponent implements OnInit {
+export class DirectoryComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   apis: any[];
@@ -34,12 +34,12 @@ export class DashboardComponent implements OnInit {
   selectedAttribute: string = this.attributes[0].viewValue;
 
   constructor(private router: Router,
-              private updateDashboardService: UpdateDashboardService) {
+              private updateDirectoryService: UpdateDirectoryService) {
 
   }
 
   ngOnInit(): void {
-    this.updateDashboardService.getAsyncApiSummary().subscribe(returnedApis => {
+    this.updateDirectoryService.getAsyncApiSummary().subscribe(returnedApis => {
       this.apis = returnedApis;
       this.pageLength = returnedApis.length;
       this.displayedApis = returnedApis;

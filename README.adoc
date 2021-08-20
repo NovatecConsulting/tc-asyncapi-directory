@@ -30,17 +30,6 @@ ng serve
 
 . Navigate to localhost:4200.
 
-== Open Tasks
-
-* [x] *Important: Upgrade to next-branch and standalone component instead of web component* +
-Needs further investigation. Web component of next-branch did not apply css-tyles correctly;
-react component of next-branch did not render externally fetched schema definitions!
-* [x] example with Kafka- or RabbitMQ-specific bindings (HTTP binding rendering is possible!)
-* [x] render operationIDs
-* [ ] render external documentation?
-* [ ] additional information at "Meta-Info" tab?
-* [ ] displaying of different payload types (Avro, JSON...) in additional tab
-
 
 == Defining AsyncAPIs
 === Custom extensions
@@ -52,6 +41,11 @@ Nearly every object within an AsyncAPI definition can be extended with specifica
 * the custom fields are currently not rendered by the React component!
 
 === Defining Kafka-specific properties with AsyncAPI
+*Server Configuration* +
+It is currently not possible to configure the Kafka Broker with Kafka-specific
+bindings within an AsyncAPI definition. Kafka Topics are equivalent to AsyncAPI
+Channels. Therefore, the channel names correspond to the Kafka topic names.
+Additional properties, e.g. the number of partitions or replication factors, could be configured by using custom extensions like described in paragraph 3.1.
 
 *Message Binding* +
 The "bindings" property of the https://www.asyncapi.com/docs/specifications/v2.0.0#messageObject[message object] can be used to define keys of Kafka messages.

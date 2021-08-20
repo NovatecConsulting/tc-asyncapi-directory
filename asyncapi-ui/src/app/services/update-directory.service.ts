@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class UpdateDashboardService {
+export class UpdateDirectoryService {
 
   private url = '/api/asyncapi';  // URL to web api
 
