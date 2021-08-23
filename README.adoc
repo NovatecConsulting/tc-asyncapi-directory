@@ -2,24 +2,36 @@
 :toc-title:
 :toclevels: 2
 :sectnums:
-= AsyncAPI-UI
+= AsyncAPI Directory
 
-== Quickstart
+In large IT application landscapes, several teams usually work together. Several applications offer their interfaces to the outside world. Documenting these interfaces appropriately and making them available can become a challenge as the size of the IT infrastructure grows. For asynchronous applications in particular, new documentation requirements arise that could not previously be met by https://swagger.io/specification/[OpenAPI] (which has already established itself for synchronous applications). AsyncAPI has created a new possibility for this.
 
-. Start Kafka components:
+This project implements a prototype for the central provision of AsyncAPI definitions. For example, the AsyncAPI Directory could be used as follows: +
+Multiple teams developing different applications deploy their AsyncAPI definition so that it is stored in a Kafka Topic. The AsyncAPI Directory server lists all AsyncAPI definitions from this topic, including older versions. The development teams can view the corresponding AsyncAPI if needed and develop their application against it.
+
+This idea of an API registry is not new, of course, and is already offered by https://www.apicur.io/[Apicurio], for example. However, since AsyncAPI is still a new standard, Apicurio does not yet provide a way to represent the AsyncAPI definitions in a human-readable way. https://github.com/Apicurio/apicurio-studio/issues/447[Work is in progress to fully support AsyncAPI].
+
+While this prototype uses only Kafka as a data store, other storage options are possible. For example, the AsyncAPI definitions could also be stored in a relational database.
+
+Developing new applications on a "contract first" basis offers several advantages, such as decoupling development processes across multiple teams. The provided AsyncAPI definitions could be used to create mockup services using a code generation tool, as already offered by https://microcks.io/[Microcks].
+
+
+== Quick Start
+
+. Start Kafka components using the cluster-setup script. The script will start the Docker containers and create the _asyncapi_ topic:
 +
 ----
 ./cluster-setup.sh
 ----
 
-. Start KafkaApplication locally.
-. Publish test data:
+. Start KafkaApplication locally. Afterwards, its REST API will be accessible via port 8080.
+. Publish some testing data of AsyncAPI definitions:
 +
 ----
 ./test-data.sh
 ----
 
-. Compile and start the UI:
+. Compile and start the Angular application:
 +
 ----
 cd ./asyncapi-ui
@@ -28,11 +40,33 @@ npm install --save @asyncapi/react-component@next
 ng serve
 ----
 
-. Navigate to localhost:4200.
+. Navigate to http://localhost:4200.
+
+== Preview
+
+image::doc/asyncapi-directory-overview.png[]
+image::doc/asyncapi-directory-details.png[]
+
+== Structure of this Prototype
+This prototype uses the https://github.com/asyncapi/asyncapi-react[AsyncAPI React component]* that can be embedded within Angular applications. This makes the rendered AsyncAPI definitions look like what is offered by the https://www.asyncapi.com/[Playground]. +
+The backend is written Kafka Spring, the frontend uses Angular. As soon as a new AsyncAPI definition is written into Kafka,
+the server will consume the new definition and add it to its in-memory storage.
+
+*Components:*
+
+* *Kafka Broker*: the AsyncAPI definitions are stored within a Kafka topic
+* *Backend server*: listens for new definitions on the Kafka topic, caches them in-memory and offers a REST API
+* *Frontend application*: gets the AsyncAPI definitions from the server via REST calls; uses the AsyncAPI React component for rendering
+
+*Remark: At the moment, the React component is re-written in the https://github.com/asyncapi/asyncapi-react/tree/next[next-branch]. Since this branch contains all the new features, this prototype uses
+the component from there.
+
+== Server REST API
+The AsyncAPI server adds, gets and processes AsyncAPI definitions from Kafka. The REST API of the server provides some basic operations that are used by the Angular frontend application. Details about the endpoints can be found within the link:asyncapi-server-api.yaml[API documentation] which was written using OpenAPI/Swagger.
 
 
 == Defining AsyncAPIs
-=== Custom extensions
+=== Custom Extensions
 
 Nearly every object within an AsyncAPI definition can be extended with specification extensions:
 
@@ -40,7 +74,7 @@ Nearly every object within an AsyncAPI definition can be extended with specifica
 * "x-" prefix for new fields
 * the custom fields are currently not rendered by the React component!
 
-=== Defining Kafka-specific properties with AsyncAPI
+=== Defining Kafka-Specific Properties with AsyncAPI
 *Server Configuration* +
 It is currently not possible to configure the Kafka Broker with Kafka-specific
 bindings within an AsyncAPI definition. Kafka Topics are equivalent to AsyncAPI
@@ -59,7 +93,7 @@ Since _groupId_ and _clientId_ are as well defined as https://www.asyncapi.com/d
 
 
 == Official Extensions and Functionalities in Development
-=== Diff library
+=== Diff Library
 
 The diff library is in an early stage of development and aims to enable comparison and compatibility of API changes.
 

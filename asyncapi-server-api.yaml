@@ -1,0 +1,123 @@
+openapi: 3.0.1
+info:
+  title: AsyncAPI Directory
+  description: This is a server to get, add and process AsyncAPI definitions from
+    Kafka.
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/asyncapi
+tags:
+  - name: asyncapi
+    description: Access to AsyncAPI definitions.
+
+paths:
+  /:
+    post:
+      tags:
+        - asyncapi
+      summary: Add a new AsyncAPI definition to the directory.
+      operationId: publishAsyncApiDefinition
+      requestBody:
+        description: AsyncApi definition that should be added to the directory and
+          its unique ID.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AsyncApiRecord'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content: {}
+
+  /{artifactId}/latest:
+    get:
+      tags:
+        - asyncapi
+      summary: Gets latest version of an AsyncAPI definition by ID.
+      operationId: getLatestversionOfAsyncApi
+      parameters:
+        - name: artifactId
+          in: path
+          description: Unique ID of the AsyncAPI definition to get.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncApiRecord'
+
+  /{artifactId}/{version}:
+    get:
+      tags:
+        - asyncapi
+      summary: Gets specific version of an AsyncAPI definition with the specified
+        ID.
+      operationId: getAsyncApiByVersionNumber
+      parameters:
+        - name: artifactId
+          in: path
+          description: Unique ID of the AsyncAPI definition to get.
+          required: true
+          schema:
+            type: string
+        - name: version
+          in: path
+          description: Version number of AsyncAPI definition to get.
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncApiRecord'
+
+  /{artifactId}:
+    get:
+      tags:
+        - asyncapi
+      summary: Gets the highest version number of the specified AsyncAPI definition.
+      operationId: getHighestVersionNumber
+      parameters:
+        - name: artifactId
+          in: path
+          description: Unique ID of the AsyncAPI definition to get.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncApiVersion'
+
+components:
+  schemas:
+    AsyncApiRecord:
+      type: object
+      properties:
+        artifactId:
+          type: string
+        version:
+          type: integer
+          format: int64
+        definition:
+          type: object
+          properties: {}
+    AsyncApiVersion:
+      type: object
+      properties:
+        artifactId:
+          type: string
+        highestVersion:
+          type: integer
+          format: int64
