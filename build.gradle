@@ -52,6 +52,10 @@ task ngBuild(type: NodeTask, dependsOn: 'npmInstall') {
     args = ['build', '--output-path', '../resources/static']
 }
 
+build.dependsOn('ngBuild')
+
+jar.dependsOn('copyDependantLibs')
+
 node {
     // Whether to download and install a specific Node.js version or not
     // If false, it will use the globally installed Node.js
