@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping(value = "/asyncapi")
+@RequestMapping(value = "/api/asyncapi")
 public class ReaderController {
 
     private final ReaderService readerService;

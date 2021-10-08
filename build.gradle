@@ -1,9 +1,12 @@
 plugins {
-    id 'java'
+    id "com.github.node-gradle.node" version "3.0.1"
+    id "java"
 }
 
+sourceCompatibility = 1.11
+
 group 'org.example'
-version '1.0-SNAPSHOT'
+version '0.0.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -12,17 +15,62 @@ repositories {
 
 dependencies {
     implementation 'org.apache.kafka:kafka-clients:2.8.0'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.3'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.5'
     implementation group: 'org.json', name: 'json', version: '20210307'
-    implementation 'org.springframework.kafka:spring-kafka:2.7.5'
+    implementation 'org.springframework.kafka:spring-kafka:2.7.6'
     implementation group: 'io.confluent', name: 'kafka-json-serializer', version: '6.2.0'
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+jar {
+    manifest {
+        attributes 'Main-Class': 'de.novatec.tc.KafkaApplication'
+    }
+}
+
+
+tasks.create(name: "copyDependantLibs", type: Copy) {
+    from (configurations.runtimeClasspath)
+    into "$buildDir/dependent-libs"
+    duplicatesStrategy 'exclude'
 }
 
 test {
     useJUnitPlatform()
+}
+
+clean {
+    delete "${project.projectDir}/src/main/ui/node_modules"
+    delete "${project.projectDir}/src/main/resources/static"
+}
+
+task ngBuild(type: NodeTask, dependsOn: 'npmInstall') {
+    script = project.file('src/main/ui/node_modules/@angular/cli/bin/ng')
+    args = ['build', '--output-path', '../resources/static']
+}
+
+node {
+    // Whether to download and install a specific Node.js version or not
+    // If false, it will use the globally installed Node.js
+    // If true, it will download node using above parameters
+    // Note that npm is bundled with Node.js
+    download = true
+
+    // Version of node to use.
+    version = '12.18.3'
+
+    // Version of npm to use.
+    npmVersion = ''
+
+    // Set the work directory for unpacking node
+    workDir = file("${project.buildDir}/nodejs")
+
+    // Set the work directory for NPM
+    npmWorkDir = file("${project.buildDir}/npm")
+
+    // Set the work directory where node_modules should be located
+    nodeProjectDir = file("${project.projectDir}/src/main/ui")
 }

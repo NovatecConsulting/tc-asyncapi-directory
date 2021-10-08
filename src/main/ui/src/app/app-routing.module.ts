@@ -5,7 +5,7 @@ import { DirectoryComponent } from './directory/directory.component';
 import { AsyncapiDetailsComponent } from './directory/asyncapi-details/asyncapi-details.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/directory', pathMatch: 'full' },
+  { path: '', component: DirectoryComponent },
   { path: 'directory', component: DirectoryComponent },
   { path: 'directory/details/:id', component: AsyncapiDetailsComponent }
 ];
