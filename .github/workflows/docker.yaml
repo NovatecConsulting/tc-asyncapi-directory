@@ -1,0 +1,42 @@
+name: dockerBuildAndPush
+on:
+  push:
+    branches:
+      - main
+      - docker
+  workflow_dispatch:    
+
+jobs:
+  build_Stage_Docker_Build_Push:
+    runs-on: ubuntu-latest
+    name: Build and publish AsyncAPI Directory Docker image
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Build JAR with Gradle
+        run: ./gradlew jar
+
+      - name: Add SHORT_SHA env property with commit short sha
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+
+      - name: Build and push AsyncAPI Directory image
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.TC_SHOWCASE_DOCKERHUB_USER }}
+          password: ${{ secrets.TC_SHOWCASE_DOCKERHUB_PASSWORD }}
+          dockerfile: ./docker/Dockerfile
+          repository: novatec/asyncapi-directory
+          tags: latest, ${{ env.SHORT_SHA }}
+          tag_with_sha: true

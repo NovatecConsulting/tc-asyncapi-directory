@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/asyncapi")
+@RequestMapping(value = "/api/asyncapi")
 public class WriterController {
 
     private static Logger LOG = LoggerFactory.getLogger(WriterController.class);
