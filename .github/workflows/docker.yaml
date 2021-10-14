@@ -36,7 +36,7 @@ jobs:
         with:
           username: ${{ secrets.TC_SHOWCASE_DOCKERHUB_USER }}
           password: ${{ secrets.TC_SHOWCASE_DOCKERHUB_PASSWORD }}
-          dockerfile: ./Dockerfile
+          dockerfile: ./docker/Dockerfile
           repository: novatec/asyncapi-directory
           tags: latest, ${{ env.SHORT_SHA }}
           tag_with_sha: true
