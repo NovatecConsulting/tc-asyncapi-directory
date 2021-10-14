@@ -25,42 +25,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'de.novatec.tc.KafkaApplication'
-    }
-}
-
-
-tasks.create(name: "copyDependantLibs", type: Copy) {
-    from (configurations.runtimeClasspath)
-    into "$buildDir/dependent-libs"
-    duplicatesStrategy 'exclude'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-clean {
-    delete "${project.projectDir}/src/main/ui/node_modules"
-    delete "${project.projectDir}/src/main/resources/static"
-}
-
-task ngBuild(type: NodeTask, dependsOn: 'npmInstall') {
-    script = project.file('src/main/ui/node_modules/@angular/cli/bin/ng')
-    args = ['build', '--output-path', '../resources/static']
-}
-
-build.dependsOn('ngBuild')
-
-jar.dependsOn('copyDependantLibs')
-
 node {
     // Whether to download and install a specific Node.js version or not
-    // If false, it will use the globally installed Node.js
-    // If true, it will download node using above parameters
-    // Note that npm is bundled with Node.js
     download = true
 
     // Version of node to use.
@@ -78,3 +44,35 @@ node {
     // Set the work directory where node_modules should be located
     nodeProjectDir = file("${project.projectDir}/src/main/ui")
 }
+
+test {
+    useJUnitPlatform()
+}
+
+jar.dependsOn('copyDependantLibs')
+jar {
+    manifest {
+        attributes 'Main-Class': 'de.novatec.tc.KafkaApplication'
+    }
+}
+
+
+tasks.create(name: "copyDependantLibs", type: Copy) {
+    from (configurations.runtimeClasspath)
+    into "$buildDir/dependent-libs"
+    duplicatesStrategy 'exclude'
+}
+
+build.dependsOn('ngBuild')
+
+task ngBuild(type: NodeTask, dependsOn: 'npmInstall') {
+    script = project.file('src/main/ui/node_modules/@angular/cli/bin/ng')
+    args = ['build', '--output-path', '../resources/static']
+}
+
+clean {
+    delete "${project.projectDir}/src/main/ui/node_modules"
+    delete "${project.projectDir}/src/main/resources/static"
+}
+
+

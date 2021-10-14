@@ -44,8 +44,8 @@ services:
       KAFKA_CONTROL_PLAIN_LISTENER_NAME: DOCKER # (default: PLAINTEXT) Name of listener used for communication between controller and brokers. By default, no dedicated listener is used.
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER # (default: PLAINTEXT) Name of listener used for communication between brokers.  By default, no dedicated listener is used.
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0 # (default: 3000) The amount of time the group coordinator will wait for more consumers to join a new group before performing the first rebalance. Set to 0 to ensure, that consumers start faster in dev environments.
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false" # (default: true) We disabled auto creation of topics, to ensure that topics are created with the correct configuration. However, if defaults are fine, this could be enabled.
-      KAFKA_NUM_PARTITIONS: 3 # (default: 1) The default number of partitions per topic.
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true" # (default: true) We disabled auto creation of topics, to ensure that topics are created with the correct configuration. However, if defaults are fine, this could be enabled.
+      KAFKA_NUM_PARTITIONS: 1 # (default: 1) The default number of partitions per topic.
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 # (default: 3) The replication factor for the offsets topic. Must be 1, because we only have a single broker.
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1 # (default: 3) The replication factor for the transaction topic. Must be 1, because we only have a single broker.
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 # (default: 2) Overridden min.insync.replicas config for the transaction topic. Must be 1, because we only have a single broker.
