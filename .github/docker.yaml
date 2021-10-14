@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - docker
+  workflow_dispatch:    
 
 jobs:
   build_Stage_Docker_Build_Push:
