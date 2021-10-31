@@ -1,6 +1,6 @@
 #!/bin/sh
 
-docker-compose up -d
+docker-compose -f docker/docker-compose.yaml up -d
 
 echo 'Waiting for cluster to be available...'
 sleep 20
